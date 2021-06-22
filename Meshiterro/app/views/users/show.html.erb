@@ -1,3 +1,11 @@
+<div class="profile-container">
+  <h3 class="profile-name"><%= @user.name %></h3>
+  <%= attachment_image_tag @user, :profile_image, format:"jpeg", fallback:"no_image.jpg", size:"100x100" %>
+  <% if @user.id == current_user.id %>
+    <p><%= link_to 'プロフィール編集',edit_user_path(@user.id) %></p>
+  <% end %>
+</div>
+
 
 <% @post_images.each do |post_image| %>
 <div>
@@ -5,13 +13,14 @@
     <%= attachment_image_tag post_image, :image %>
   <% end %>
 
-  <p>投稿ユーザー画像:<%= attachment_image_tag post_image.user, :profile_image, fallback:"no_image.jpg", size:"60x60" %> %></p>
+  <p>投稿ユーザー画像:<%= image_tag('sample-author1.jpg') %></p>
   <!--usersモデルのprofile_imageから、attachment_image_tagで挿入-->
   <p>ショップ名:<%= post_image.shop_name %></p>
   <p>説明:<%= post_image.caption %></p>
   <p>ユーザーネーム:<%= post_image.user.name %></p>
-  <p><%= link_to "#{post_image.post_comments.count}コメント", post_image_path(post_image.id) %></p>
+
 </div>
 <% end %>
 
 <%= paginate @post_images %>
+
