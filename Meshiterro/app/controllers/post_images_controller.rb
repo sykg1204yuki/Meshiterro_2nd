@@ -5,11 +5,16 @@ class PostImagesController < ApplicationController
 
   end
 
-  def create #テキストでは@post_imageになっているが、違いは何か？
-    post_image = PostImage.new(post_image_params)
-    post_image.user_id = current_user.id
-    post_image.save
-    redirect_to post_images_path
+  def create 
+    #　@post_imageになっているのは・・・
+    #　→ バリデーションメッセージ表示の際にインスタンスを渡す必要があるため！！
+    @post_image = PostImage.new(post_image_params)
+    @post_image.user_id = current_user.id
+    if @post_image.save
+      redirect_to post_images_path
+    else
+      render :new
+    end 
 
   end
 
