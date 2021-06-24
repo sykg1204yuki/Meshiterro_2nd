@@ -1,5 +1,9 @@
-<div class="post-body">
-  <%= attachment_image_tag @post_image, :image %>
+<div class="card-body">
+  <div class="card-img-top">
+    <%= attachment_image_tag @post_image, :image, format:"jpeg",
+        size:"800x700" %>
+  </div>
+  
   <p>ショップ名:<%= @post_image.shop_name %></p>
   <p>説明:<%= @post_image.caption %></p>
   <p>ユーザーネーム:<%= @post_image.user.name %></p>
@@ -24,7 +28,6 @@
     </p>
   <% end %>
   <!--いいね機能ここまで-->
-
 </div>
 
 

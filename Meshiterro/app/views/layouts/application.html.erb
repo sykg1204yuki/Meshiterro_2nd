@@ -4,33 +4,55 @@
     <title>Meshiterro</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to '投稿フォーム', new_post_image_path %>
-      </li>
-      <li>
-        <%= link_to 'ログアウト',destroy_user_session_path, method: :delete %>
-      </li>
-      <li>
-        <%= link_to 'マイページ', user_path(current_user.id) %>
-        
-      </li>
-    <% else %>
-      <li>
-        <%= link_to '新規登録', new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to 'ログイン',new_user_session_path %>
-      </li>
-    <% end %>
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand p-3" href="/"><%= image_tag('logo.png') %></a>
+          <button class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarNavDropdown"
+                  aria-controls="navbarNavDropdown"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <% if user_signed_in? %>
+              <li class="nav-list list-unstyled">
+                <%= link_to 'マイページ', user_path(current_user.id), class:"nav-link fas fa-user" %>
+              </li>
+              <li class="nav-list list-unstyled">
+                <%= link_to '投稿フォーム', new_post_image_path, class:"nav-link" %>
+              </li>
+              <li class="nav-list list-unstyled">
+                <%= link_to '投稿一覧', post_images_path, class:"nav-link fas fa-camera" %>
+              </li>
+              <li class="nav-list list-unstyled">
+                <%= link_to 'ログアウト',destroy_user_session_path, method: :delete,
+                    class:"nav-link fas fa-sign-out-alt" %>
+              </li>
+            <% else %>
+              <li class="nav-list list-unstyled">
+                <%= link_to '新規登録', new_user_registration_path, class:"nav-link fas fa-user-plus" %>
+              </li>
+              <li class="nav-list list-unstyled">
+                <%= link_to 'ログイン',new_user_session_path, class:"nav-link fas fa-sign-in-alt" %>
+              </li>
+            <% end %>
+          </div>
+        </div>
+      </nav>
+    </header>
 
     <%= yield %>
   </body>
